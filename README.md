@@ -1,6 +1,8 @@
 # Title
 Supplementary information for "Evaluating the population impact of mask-wearing on COVID-19 transmission during the pre-vaccination period: a modeling study"
 
+# Direction
+
 
 # Mask survey
 You Gov survey result is available from
