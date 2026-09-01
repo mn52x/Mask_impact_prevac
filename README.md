@@ -1,5 +1,5 @@
 # Title
-Supplementary information for "Population impact of mask-wearing on COVID-19 transmission during the pre-vaccination period: a modeling study"
+Supplementary information for "Population impact of mask-wearing on COVID-19  during the pre-vaccination period: a modeling study"
 
 # Mask survey
 You Gov survey :S. P. Jones, Data from “Imperial College London Big Data Analytical Unit and YouGov Plc. 2020,.” Imperial College London YouGov Covid Data Hub, v1.0, YouGov Plc,. Available at https://github.com/YouGov-Data/covid-19-tracker. Deposited 2 April 2020.
