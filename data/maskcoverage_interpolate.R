@@ -11,7 +11,7 @@ input_dir <- "../mask-wearing_data"  # including all mask-wearing data in one fo
 # ===load file  ==========================================
 files <- list.files(
   input_dir,
-  pattern = "^[A-Z]{3}_mask\\.csv$",
+  pattern = "^[A-Z]{3}_mask\\.csv$",　#set file name as "XXX_mask.csv" XXX is country code
   full.names = TRUE
 )
 stopifnot(length(files) > 0)
