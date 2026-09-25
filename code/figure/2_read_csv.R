@@ -15,7 +15,7 @@ suppressPackageStartupMessages({
     if (!startsWith(ln, "#") && nzchar(ln)) return(i)
     if (i >= max_lines) break
   }
-  stop("ヘッダ行を特定できません: ", file)
+  stop("cannnot find header: ", file)
 }
 
 # get header names
@@ -101,6 +101,6 @@ make_csv_fit <- function(csvs){
 
 ## create fit 
 csvs <- dir("../country", #folder including stan result csv files
-            pattern = "2_1_prepare_runstan-XXX-.*\\.csv$", #XXX reflects saved time
+            pattern = "main_model-XXX-.*\\.csv$", #XXX reflects saved time
             full.names = TRUE)
 fit <- make_csv_fit(csvs)
