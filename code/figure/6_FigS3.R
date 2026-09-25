@@ -4,8 +4,8 @@ suppressPackageStartupMessages({
 })
 # ============================================================
 # setting 
-# 1. Run 2_2_prepare_runstan.r to get observed data
-# 2. Run 3_1_read_csv.r to get fit data
+# 1. Run prepare_runstan.r to get observed data
+# 2. Run 2_read_csv.r to get fit data
 # ============================================================
 # ============================================================
 # 1)utility 
