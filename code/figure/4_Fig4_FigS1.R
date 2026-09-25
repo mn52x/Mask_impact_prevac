@@ -23,31 +23,31 @@ col_avertible <- "#0072b2"
 #baseline result
 fit_base <- make_csv_fit(
     dir("../JPN", 
-        pattern    = "2_2_prepare_runstan-XXX-.*\\.csv$",
+        pattern    = "main_model-XXX-.*\\.csv$",
         full.names = TRUE))
 
 #lower reporting coverage
 fit_report_low <- make_csv_fit(
     dir("../SA_JPN_reportlow",
-        pattern    = "2_2_prepare_runstan-XXX-.*\\.csv$",
+        pattern    = "main_model-XXX-.*\\.csv$",
         full.names = TRUE))
 
 #higher reporting coverage 
 fit_report_high <- make_csv_fit(
     dir("../SA_JPN_reporthigh",
-        pattern    = "2_2_prepare_runstan-XXX-.*\\.csv$",
+        pattern    = "main_model-XXX-.*\\.csv$",
         full.names = TRUE))
 
 #mask-effect lower
 fit_exp_low <- make_csv_fit(
     dir("../SA_JPN_exp_lower",
-        pattern    = "2_2_prepare_runstan-XXX-.*\\.csv$",
+        pattern    = "main_model-XXX-.*\\.csv$",
         full.names = TRUE))
 
 #mask-effect upper 
 fit_exp_high <- make_csv_fit(
     dir("../SA_JPN_exp_upper",
-        pattern    = "2_2_prepare_runstan-XXX-.*\\.csv$",
+        pattern    = "main_model-XXX-.*\\.csv$",
         full.names = TRUE))
   
 
@@ -57,7 +57,7 @@ fit_exp_high <- make_csv_fit(
 # scenario_label: "base" / "CF1" / "CF2"
 make_M_long <- function(fit, varname, scenario_label){
   dm <- fit$draws(varname, format = "draws_matrix")
-  df <- as.data.frame(dm)  # 列名は M_hat_out[1,1] など
+  df <- as.data.frame(dm)  
   
   df |>
     mutate(.draw = dplyr::row_number()) |>
@@ -288,7 +288,6 @@ make_M_long <- function(fit, varname, scenario_label){
     ) |>
     mutate(
       scenario = scenario_label,
-      # 例: "M_hat_out[12,3]" -> t = 12, age = 3
       t   = as.integer(stringr::str_match(var, "\\[(\\d+),(\\d+)\\]")[, 2]),
       age = as.integer(stringr::str_match(var, "\\[(\\d+),(\\d+)\\]")[, 3])
     ) |>
