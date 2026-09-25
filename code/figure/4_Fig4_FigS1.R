@@ -12,9 +12,9 @@ col_averted   <- "#d55e00"
 col_avertible <- "#0072b2"  
 
 # =================
-# read fit 
-# 1-1 get standata from 2_2_prepare_runstan
-# 1-2 run "3_1_read_csv.R" 
+# read data
+# 1) get standata from prepare_runstan.r
+# 2) run 2_read_csv.r 
 #=====================  
 
 #===================
