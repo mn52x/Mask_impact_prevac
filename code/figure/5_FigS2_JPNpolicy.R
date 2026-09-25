@@ -38,9 +38,9 @@ intervention_labels <- c(
 intervention_df <- read.csv("../JPN_policy.csv")
 
 # =================
-# load fit 
-# 1-1 get standata from 2_2_prepare_runstan
-# 1-2 run "3_1_read_csv.R" 
+# load data
+# 1) get standata from prepare_runstan.r
+# 2) run 2_read_csv.r 
 #=====================  
 csvs <- dir("../JPN", #folder including stan result csv files
             pattern = "2_1_prepare_runstan-XXX-.*\\.csv$", #XXX reflects saved time
