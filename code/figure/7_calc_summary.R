@@ -8,7 +8,104 @@ CFR_path <- "../CFR.csv"
 POP_path <- "../population.csv"
 
 
-#----- run "3_1_read_csv"  to get make_csv_fit function 
+#----- load sampling result by country-------
+.get_saved_draws <- function(file, max_lines = 300L){
+  x <- readLines(file, n = max_lines, warn = FALSE)
+  
+  ns <- as.integer(str_match(x, "^#\\s*num_samples\\s*=\\s*(\\d+)")[,2])
+  th <- as.integer(str_match(x, "^#\\s*thin\\s*=\\s*(\\d+)")[,2])
+  
+  ns <- ns[!is.na(ns)][1]
+  th <- th[!is.na(th)][1]
+  
+  if (is.na(ns)) stop("num_samples not found in header: ", file)
+  if (is.na(th) || th < 1) th <- 1L
+  
+  as.integer(ns / th)
+}
+
+make_csv_fit <- function(csvs){
+  stopifnot(length(csvs) >= 1, all(file.exists(csvs)))
+  
+  header_row <- .find_header_row(csvs[1])
+  orig_names <- .read_header_names(csvs[1], header_row)
+  norm_names <- .normalize_names(orig_names)
+  
+  orig_by_norm <- setNames(orig_names, norm_names)
+  name2pos <- setNames(seq_along(orig_names), orig_names)
+  
+  variables <- function() norm_names
+  
+  .read_subset <- function(select_norm, format = c("draws_matrix","draws_df")){
+    format <- match.arg(format)
+    
+    sel_norm <- intersect(select_norm, norm_names)
+    if (!length(sel_norm)) stop("cannnot find: ", paste(select_norm, collapse=", "))
+    
+    sel_orig <- unname(orig_by_norm[sel_norm])
+    sel_idx  <- unname(name2pos[sel_orig])
+    
+    dts <- lapply(seq_along(csvs), function(i){
+      
+      n_draw <- .get_saved_draws(csvs[i])  
+      
+      dt <- data.table::fread(
+        csvs[i],
+        skip = "lp__",      
+        header = FALSE,
+        select = sel_idx,
+        nrows = n_draw,   
+        showProgress = FALSE
+      )
+      
+      data.table::setnames(dt, sel_norm)
+      dt[, .chain := i]
+      dt[, .iteration := .I]
+      dt
+    })
+    
+        big <- data.table::rbindlist(dts, use.names = TRUE, fill = TRUE)
+    
+    draw_cols <- setdiff(names(big), c(".chain",".iteration"))
+    mat <- as.matrix(big[, ..draw_cols])
+    colnames(mat) <- draw_cols
+    rownames(mat) <- NULL
+    
+    if (format == "draws_matrix") {
+      posterior::as_draws_matrix(mat)
+    } else {
+      dm <- posterior::as_draws_matrix(mat)
+      df <- posterior::as_draws_df(dm)
+    
+      df <- df %>%
+        mutate(
+          .chain     = big$.chain,
+          .iteration = big$.iteration
+        ) %>%
+        relocate(.chain, .iteration, .draw)
+      
+      df
+    }
+  }
+  
+  draws <- function(variables = NULL, format = c("draws_matrix","draws_df")){
+    format <- match.arg(format)
+    if (is.null(variables)) stop("set variables")
+    
+    if (length(variables) == 1 && !grepl("\\[", variables)) {
+      pat  <- paste0("^", variables, "(\\[|$)")
+      cols_norm <- grep(pat, norm_names, value = TRUE)
+    } else {
+      cols_norm <- variables
+    }
+    
+    .read_subset(cols_norm, format = format)
+  }
+  
+  structure(list(csvs = csvs, variables = variables, draws = draws),
+            class = "csv_fit")
+}
+
 
 calc_cum_from_prefix2d <- function(draws_df, prefix, method = c("sum","last"), by_age = TRUE){
   method <- match.arg(method)
@@ -136,7 +233,7 @@ compute_averted_deaths_one_country_2d <- function(
 ){
   cum_method <- match.arg(cum_method)
   
-  cfr_vec <- get_cfr_vec(cfr_df, country)   # ★コード1と同じ
+  cfr_vec <- get_cfr_vec(cfr_df, country)   
   
   d_out <- fit$draws(prefix_out, format="draws_df") %>% tibble::as_tibble()
   d_c1  <- fit$draws(prefix_cf1, format="draws_df") %>% tibble::as_tibble()
