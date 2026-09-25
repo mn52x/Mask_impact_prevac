@@ -190,7 +190,7 @@ calc_country_draws <- function(cc, cum_start, cum_end) {
   
   csvs <- dir(
     file.path("../countries", cc),
-    pattern    = "2_2_prepare_runstan-.*\\.csv$",
+    pattern    = "main_model-.*\\.csv$",
     full.names = TRUE
   )
   fit   <- make_csv_fit(csvs)
