@@ -43,7 +43,7 @@ intervention_df <- read.csv("../JPN_policy.csv")
 # 2) run 2_read_csv.r 
 #=====================  
 csvs <- dir("../JPN", #folder including stan result csv files
-            pattern = "2_1_prepare_runstan-XXX-.*\\.csv$", #XXX reflects saved time
+            pattern = "main_model-XXX-.*\\.csv$", #XXX reflects saved time
             full.names = TRUE)
 fit_base <- make_csv_fit(csvs)
 
