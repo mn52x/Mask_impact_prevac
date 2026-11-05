@@ -313,7 +313,7 @@ all_country_draws_deaths <- purrr::map2_dfr(country_codes, country_dirs, functio
   fit <- make_csv_fit(csvs)
   
   compute_averted_deaths_one_country_2d(
-    fit, cc, cfr_df_wide,   # ★ここが重要：cfr_long ではなく wide を渡す
+    fit, cc, cfr_df_wide,   
     prefix_out = "M_hat_out",
     prefix_cf1 = "M_hat_CF1_out",
     prefix_cf2 = "M_hat_CF2_out",
