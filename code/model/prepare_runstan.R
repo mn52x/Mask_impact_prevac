@@ -246,15 +246,15 @@ stan_data <- list(
 str(stan_data)
 
 # .stan
-mod <- cmdstan_model("maskage_Poisson_log.stan")
+mod <- cmdstan_model("main_model.stan")
 # sampling setting
 fit <- mod$sample(
   data = stan_data,
   seed = 123,
   chains = 4,              
   parallel_chains = 4,
-  iter_warmup   = 500,　#for test    
-  iter_sampling = 1000, # for test
+  iter_warmup   = 5000,　   
+  iter_sampling = 10000, 
   adapt_delta   = 0.96,     
   max_treedepth = 15,       
   refresh = 200,
