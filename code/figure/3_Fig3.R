@@ -9,7 +9,7 @@ showtext_auto()
 
 # ── 1. load CFR and population ─────────────────────────────────────────
 CFR_path <- "../cfr.csv"
-POP_path <- "../population.csv"
+POP_path <- "../population_2020.csv"
 
 cfr_all <- read_csv(CFR_path,  show_col_types = FALSE)
 pop_all <- read_csv(POP_path,  show_col_types = FALSE)
