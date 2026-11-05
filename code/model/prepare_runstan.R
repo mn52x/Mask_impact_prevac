@@ -9,8 +9,8 @@ library(patchwork); library(here)
 
 # ----- load data ----
 country_name <- #country iso3 code
-data <- read.csv("../country_case_mask.csv")
-pop <- read.csv("../population.csv")
+data <- read.csv("../observed_case_mask.csv")
+pop <- read.csv("../population_2020.csv")
 fix_end_df <- read.csv("../lase_observed_time_in_sim.csv")
 rep_cov_df <- read.csv("../reporting_coverage.csv")
 
