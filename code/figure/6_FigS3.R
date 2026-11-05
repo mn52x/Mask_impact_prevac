@@ -418,8 +418,7 @@ plot_total_CI_scen_from_rds <- function(ci_total_df, rt_df, obs_df, fix_end,
   
   col_ci <- scen_colors_fill[scenario]
   col_rt <- scen_colors_rt[scenario]
-  
-  # ★凡例用のキー→色の対応
+
   key_inc <- "Estimated"
   key_rt  <- "Rt"
   key_obs <- "Reported"
