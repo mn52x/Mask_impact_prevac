@@ -73,7 +73,7 @@ pop_long <- read_csv(pop_csv, show_col_types = FALSE) %>%
 # =========================
 # Load files
 # =========================
-raw_all_df <- read.csv("../DatasetsS1_observed_case_mask.csv")
+raw_all_df <- read.csv("../observed_case_mask.csv")
 raw_all_df <- raw_all_df%>%
   mutate(
   continent = case_when(
