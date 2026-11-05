@@ -131,8 +131,8 @@ diff_draws_mhat <- bind_rows(
     quantity = factor(quantity, levels = c("Avertible", "Averted")),
     source   = "M_hat"
   )
-saveRDS(diff_draws_mhat, "fig4_diff_draws_mhat_effect.rds")
-diff_draws_mhat <- readRDS("fig4_diff_draws_mhat_effect.rds")
+saveRDS(diff_draws_mhat, "fig4.rds")
+diff_draws_mhat <- readRDS("fig4.rds")
 
 # -----------------------------------------------------------------------------
 # 6. A：averted 
@@ -247,28 +247,28 @@ p_fig_4 <- cowplot::ggdraw(p_fig_4) +
 # serial inteval using lognormal distribution
 fit_SI_lognormal <- make_csv_fit(
     dir("../SA_JPN_lognormal",
-        pattern    = "2_2_prepare_runstan-XXX--.*\\.csv$",
+        pattern    = "main_model-XXX-.*\\.csv$",
         full.names = TRUE))
  # mask-wearing coverage using CTIS data 
 fit_mask_CTIS <- make_csv_fit(
     dir("../SA_JPN_maskFB",
-        pattern    = "2_2_prepare_runstan-XXX--.*\\.csv$",
+        pattern    = "main_model-XXX-.*\\.csv$",
         full.names = TRUE))
 #wider prior distribution for MCMC sampling   
 fit_widerprior <- make_csv_fit(
     dir("../SA_JPN_widerprior",
-        pattern    = "2_2_prepare_runstan-XXX--.*\\.csv$",
+        pattern    = "main_model-XXX-.*\\.csv$",
         full.names = TRUE))
 
 #lower wearer protection
 fit_lowlambda <- make_csv_fit(
     dir("../SA_JPN_lambdalower",
-        pattern    = "2_2_prepare_runstan-XXX--.*\\.csv$",
+        pattern    = "main_model-XXX-.*\\.csv$",
         full.names = TRUE))
 #swapping wearer protection and source control effect values  
 fit_swaplamda<- make_csv_fit(
     dir("../SA_JPN_switchlambda",
-        pattern    = "2_2_prepare_runstan-XXX--.*\\.csv$",
+        pattern    = "main_model-XXX-.*\\.csv$",
         full.names = TRUE))
 
 # -----------------------------------------------------------------------------
@@ -357,9 +357,9 @@ diff_draws_mhat <- bind_rows(
 
 
 
-saveRDS(diff_draws_mhat, "figS2_diff_draws.rds")
+saveRDS(diff_draws_mhat, "figS2.rds")
 
- diff_draws_mhat <- readRDS("figS2_diff_draws.rds")
+ diff_draws_mhat <- readRDS("figS2.rds")
  
 
 # -----------------------------------------------------------------------------
